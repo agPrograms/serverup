@@ -15,6 +15,6 @@ The purpose of this tool is quite literally just to check a program task and sen
 ## Install/Usage
 
 **Note: This is a Windows-focused tool. It will not work on Linux/UNIX enviorments, EVEN EMULATORS LIKE WINE!**
-1. Download the serverup-public.py python file and edit the ``'webhook_url'`` and ``'mc'`` variables to match your discord webhook and process you want to check the condition of.
-2. Save your changes, and utilize python to execute the file via the CMD: ``python3 serverup-public.py`` or you can compile it to a Windows Executable (.exe) by using the *[pyinstaller](https://pypi.org/project/pyinstaller/)* package.
+1. Download the serverup.py python file and edit the ``'webhook_url'`` and ``'mc'`` variables to match your discord webhook and process you want to check the condition of.
+2. Save your changes, and utilize python to execute the file via the CMD: ``python3 serverup.py`` or you can compile it to a Windows Executable (.exe) by using the *[pyinstaller](https://pypi.org/project/pyinstaller/)* package.
 3. Enjoy!
