@@ -5,7 +5,10 @@ import requests as r
 import subprocess
 import time as t
 
-global cn;cn = 0 # Is there a better way?
+import requests as r
+import subprocess
+import time as t
+
 mc = "java.exe" # Is there a better way?
 webhook_url = "YOUR WEBHOOK HERE"
 
@@ -18,7 +21,6 @@ class s:
         }
         r.post(webhook_url, json=dataUP)
 
-
     def srvdown():
         print('Server is down! Sending message to Discord...')
         global dataDOWN
@@ -27,7 +29,6 @@ class s:
         }
         r.post(webhook_url, json=dataDOWN)
 
-
     def srvfind(game_name):
         call = 'TASKLIST', '/FI', 'imagename eq %s' % game_name
         output = subprocess.check_output(call).decode()
@@ -35,53 +36,35 @@ class s:
         return last_line.lower().startswith(game_name.lower())
 
     def srvcatch():
-        global cn
-        if s.srvfind(mc) == True and cn == 0:
-            #global cn
-            cn = 1
+        srvcat1 = s.srvfind(mc)
+        if srvcat1 == True:
             s.srvup()
-        elif cn==1: #doesnt need to here right?
-            pass
         else:
-            cn = 3
-    
-    def srvcheck():
-        global cn
-        srvcheck = s.srvfind(mc) # dont want to repeat myself, so storing it in a variable.
-        if srvcheck == True and cn == 1:
-            print('Server is STILL OR BACK up!') #really here for debugging.
-            #global cn;cn = 1
             pass
-        elif srvcheck == True and cn == 3:
-            #global cn;cn=1
-            cn = 1
-            s.srvup()
-        elif srvcheck == False and cn == 3:
-            s.srvdown()
-            print('Server is still down. Terminating program...');t.sleep(5);exit()
-        elif srvcheck == False and cn == 1:
-            cn=3
+    def srvch(mc):
+        srvcat2 = s.srvfind(mc)
+        if srvcat2 != True:
+            global x;x=0
+            while(s.srvfind(mc)!=True) and x<3:
+                x+=1
+                print('Server is down! Restarting? Check in 5 seconds...')
+                t.sleep(5)
+            if (s.srvfind(mc)==True):
+                x = x-3
+                s.srvup()
+            elif(x==3):
+                s.srvdown()
+                print('Server is still down. Terminating program...');t.sleep(5);exit()
+        else:
+            pass
 
-        else:
-            #global cn
-            cn = 3
-            s.srvdown()
 
 s.srvcatch()
-while(cn==1): # I could make it check the task state like true here instead of the numbers... lol
-    t.sleep(30)
-    s.srvcheck()
-#    if cn == 2:   # changed while loop to check variable instead of if statement
-#        s.srvdown()
-#        cn = 3
-    #elif cn == 3: #rescue operation
+srvchecking = s.srvch(mc)
+while(srvchecking == True):
+    print('Server is up!')
+    t.sleep(20)
 
-while(cn==3): # I could make it check the task state like false here instead of the numbers... lol
-    print('Is the server restarting? Checking in 10 seconds...')
-    t.sleep(10)
-    s.srvcheck()
-#    if cn == 1:   # created while loop to check variable instead of if statement
-#        s.srvup()
-#        #cn = 2
-#    else:
-#        print('Server is still down. Terminating program...');t.sleep(5);exit() # diabolical~
+while(srvchecking == False):
+    print('Server is down!')
+    t.sleep(20)
