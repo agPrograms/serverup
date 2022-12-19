@@ -5,10 +5,6 @@ import requests as r
 import subprocess
 import time as t
 
-import requests as r
-import subprocess
-import time as t
-
 mc = "java.exe" # Is there a better way?
 webhook_url = "YOUR WEBHOOK HERE"
 
